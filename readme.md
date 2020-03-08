@@ -4,6 +4,8 @@
 
 Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spectrogram), e.g. for data from a [discrete wavelet transform](https://en.wikipedia.org/wiki/Discrete_wavelet_transform).
 
+![Scaleogram visualization](/assets/scaleogram.png)
+
 ## Using this component
 
 ### Script tag
