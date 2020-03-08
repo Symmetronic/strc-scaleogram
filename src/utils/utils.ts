@@ -17,7 +17,19 @@ export function normalization(
   // TODO: Check for both min and max values lower or higher than zero
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);
-  return (value: number) => (value > 0) ? value / max : -1 * value / min;
+  return (value: number) => {
+    if (value > max || value < min) {
+      throw new Error(
+        'Value ' + value + ' lies out of bounds [' + min + ', ' + max + ']'
+      );
+    }
+
+    return (value === 0)
+      ? 0
+      : (value > 0)
+        ? value / max
+        : -1 * value / min;
+  };
 }
 
 /**
