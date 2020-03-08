@@ -1,5 +1,6 @@
 import {
   normalization,
+  range,
   scale,
 } from './utils';
 
@@ -46,6 +47,12 @@ describe('Scaleogram', () => {
       expect(n3(-7)).toBe(-1);
       expect(n3(3)).toBe(1);
       expect(n3(0)).toBe(0);
+    });
+  });
+
+  describe('range', () => {
+    it('determines the minimum and maximum value for arrays of arrays of numbers', () => {
+      expect(range([[-13], [9, 42], [2, -4], [30]])).toEqual([-13, 42]);
     });
   });
 

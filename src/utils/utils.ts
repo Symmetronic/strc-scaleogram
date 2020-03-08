@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import flow from 'lodash.flow';
+import _ from 'lodash'
 
 /**
  * Type of a scale function.
@@ -32,6 +32,22 @@ export function normalization(
 }
 
 /**
+ * Determines the minimum and maximum value for an array of arrays of numbers.
+ * @param values Array of arrays of numbers.
+ * @return 
+ */
+export function range(
+  values: number[][]
+): [number, number] {
+  return _.flatten(values).reduce((range, value) => {
+    return [
+      (range[0] === undefined) ? value : Math.min(value, range[0]),
+      (range[1] === undefined) ? value : Math.max(value, range[1]),
+    ]
+  }, [undefined, undefined]);
+}
+
+/**
  * Creates a color scale.
  * @param  range Array containing minimum and maximum values.
  * @param  scale Range of the color scale,
@@ -41,7 +57,7 @@ export function scale(
   range: [number, number],
   scale: any = 'RdBu',
 ): (value: number) => string {
-  return flow(
+  return _.flow(
     normalization(range),
     chroma.scale(scale).domain([-1, 1]),
     color => color.hex(),

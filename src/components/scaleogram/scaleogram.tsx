@@ -1,6 +1,16 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  h,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 
-import { scale, Scale } from '../../utils/utils';
+import {
+  range,
+  scale,
+  Scale,
+} from '../../utils/utils';
 
 /**
  * Extent of the SVG element in relative measure.
@@ -84,18 +94,8 @@ export class Scaleogram {
     /* Do nothing, if data was not parsed. */
     if (!this.parsedData) return;
 
-    /* Determine minimum and maximum values. */
-    let max: number = undefined;
-    let min: number = undefined;
-    for (const row of this.parsedData) {
-      for (const value of row) {
-        max = (max === undefined) ? value : Math.max(value, max);
-        min = (min === undefined) ? value : Math.min(value, min);
-      }
-    }
-
     /* Update color scale. */
-    this.color = scale([min, max], this.parsedScale);
+    this.color = scale(range(this.parsedData), this.parsedScale);
   }
   
   /**
@@ -104,6 +104,7 @@ export class Scaleogram {
   render() {
     const rowHeight: number = EXTENT / this.parsedData.length;
 
+    // TODO: Add legend for scale.
     return (
       <svg
         height='100%'
