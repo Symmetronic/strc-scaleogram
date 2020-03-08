@@ -10,7 +10,7 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 
 ### Script tag
 
-- Put a script tag similar to this `<script src='https://unpkg.com/strc-scaleogram@1.0.0/dist/strc-scaleogram.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/strc-scaleogram@1.1.0/dist/strc-scaleogram.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, HTML, etc.
 
 ### Node Modules
@@ -45,11 +45,10 @@ You can adjust the style of the scaleogram.
 
 ```css
 strc-scaleogram {
+  /* The background color will be displayed when no data is loaded. */
+  background-color: #eeeeee;
   height: 32rem;
   width: 32rem;
-
-  /* The background color will be displayed when no data is loaded. */
-  --strc-scaleogram-background-color: #eeeeee;
 }
 ```
 

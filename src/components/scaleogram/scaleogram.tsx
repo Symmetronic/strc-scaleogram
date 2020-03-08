@@ -111,12 +111,13 @@ export class Scaleogram {
    * Renders the scaleogram visualization
    */
   render() {
-
     const parsedData: boolean =
         (this.parsedData && this.parsedData.length !== 0);
     const rowHeight: number = (!parsedData)
         ? undefined
         : EXTENT / this.parsedData.length;
+    
+    // TODO: Add legend
     return (!parsedData)
         ? null
         : <svg
