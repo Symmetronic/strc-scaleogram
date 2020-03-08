@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Symmetronic Scaleogram</title>
+
+  <script type="module" src="/build/strc-scaleogram.esm.js"></script>
+  <script nomodule src="/build/strc-scaleogram.js"></script>
+
+  <style>
+    strc-scaleogram {
+      height: 32rem;
+      width: 32rem;
+    }
+  </style>
+</head>
+<body>
+
+  <strc-scaleogram
+    data="[[-1, 2, -3, 4], [0, 6], [7]]"
+    scale="RdBu"
+  />
+
+</body>
+</html>
