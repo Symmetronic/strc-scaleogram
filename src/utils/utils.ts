@@ -14,7 +14,6 @@ export type Scale = (value: number) => string;
 export function normalization(
   range: [number, number]
 ): (value: number) => number {
-  // TODO: Check for both min and max values lower or higher than zero
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);
   return (value: number) => {
