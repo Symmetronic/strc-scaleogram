@@ -7,9 +7,9 @@ import flow from 'lodash.flow';
 export type Scale = (value: number) => string;
 
 /**
- * Creates a normalization function.
+ * Creates a normalization function for normalizing between -1 and 1.
  * @param  range Array containing minimum and maximum values.
- * @return       Normalization function.
+ * @return       Normalization function for normalizing between -1 and 1.
  */
 export function normalization(
   range: [number, number]
@@ -17,9 +17,7 @@ export function normalization(
   // TODO: Check for both min and max values lower or higher than zero
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);
-  return (value: number) => (value > 0)
-      ? (value / max) / 2 + 0.5
-      : 0.5 - (value / min) / 2;
+  return (value: number) => (value > 0) ? value / max : -1 * value / min;
 }
 
 /**
@@ -34,7 +32,7 @@ export function scale(
 ): (value: number) => string {
   return flow(
     normalization(range),
-    chroma.scale(scale),
+    chroma.scale(scale).domain([-1, 1]),
     color => color.hex(),
   );
 }
