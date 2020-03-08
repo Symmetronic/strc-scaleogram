@@ -1,5 +1,6 @@
 import {
   normalization,
+  scale,
 } from './utils';
 
 describe('Scaleogram', () => {
@@ -45,6 +46,39 @@ describe('Scaleogram', () => {
       expect(n3(-7)).toBe(-1);
       expect(n3(3)).toBe(1);
       expect(n3(0)).toBe(0);
+    });
+  });
+
+  describe('scale', () => {
+    it('throws an error when setting an invalid scale', () => {
+      expect(() => {
+        const s = scale([7, 9], 'invalid scale');
+        s(8);
+      }).toThrowError();
+
+      expect(() => {
+        const s = scale([-3, 4], {});
+        s(1);
+      }).toThrowError();
+    });
+
+    it('allows to specify scales in hexadecimal form', () => {
+      const min: string = '#7f3b08';
+      const center: string = '#f7f7f7';
+      const max: string = '#2d004b';
+      const s = scale([-2, 1], [min, center, max]);
+      expect(s(-2)).toEqual(min);
+      expect(s(0)).toEqual(center);
+      expect(s(1)).toEqual(max);
+    });
+
+    it('allows to use scales from ColorBrewer', () => {
+      const s = scale([-6, 3], 'RdBu');
+      expect(() => {
+        s(-6);
+        s(0);
+        s(3);
+      }).not.toThrowError();
     });
   });
 });
