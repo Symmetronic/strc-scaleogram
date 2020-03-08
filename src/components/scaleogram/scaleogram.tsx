@@ -65,9 +65,18 @@ export class Scaleogram {
    */
   @Watch('data')
   parseData(newValue: string): void {
-    if (newValue) {
+    /* No data is set. */
+    if (!newValue) {
+      this.parsedData = undefined;
+      return;
+    }
+
+    /* Data was set. */
+    try {
       this.parsedData = JSON.parse(newValue);
       this.updateColorScale();
+    } catch(error) {
+      console.error(error);
     }
   }
 
@@ -92,7 +101,7 @@ export class Scaleogram {
    */
   updateColorScale(): void {
     /* Do nothing, if data was not parsed. */
-    if (!this.parsedData) return;
+    if (!this.parsedData || this.parsedData.length === 0) return;
 
     /* Update color scale. */
     this.color = scale(range(this.parsedData), this.parsedScale);
@@ -102,42 +111,45 @@ export class Scaleogram {
    * Renders the scaleogram visualization
    */
   render() {
-    const rowHeight: number = EXTENT / this.parsedData.length;
 
-    // TODO: Add legend for scale.
-    return (
-      <svg
-        height='100%'
-        preserveAspectRatio='none'
-        version='1.1'
-        viewBox={'0 0 ' + EXTENT + ' ' + EXTENT}
-        width='100%'
-        xmlns='http://www.w3.org/2000/svg'
-      >
-        {this.parsedData.map((row, rowIndex) => {
-          const y: number = rowIndex * rowHeight;
+    const parsedData: boolean =
+        (this.parsedData && this.parsedData.length !== 0);
+    const rowHeight: number = (!parsedData)
+        ? undefined
+        : EXTENT / this.parsedData.length;
+    return (!parsedData)
+        ? null
+        : <svg
+            height='100%'
+            preserveAspectRatio='none'
+            version='1.1'
+            viewBox={'0 0 ' + EXTENT + ' ' + EXTENT}
+            width='100%'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            {this.parsedData.map((row, rowIndex) => {
+              const y: number = rowIndex * rowHeight;
 
-          return (
-            <g>
-              {row.map((value, colIndex) => {
-                const color: string = this.color(value);
-                const colWidth: number = EXTENT / row.length;
-                const x: number = colIndex * colWidth;
-                
-                return (
-                  <rect
-                    fill={color}
-                    height={rowHeight}
-                    width={colWidth}
-                    x={x}
-                    y={y}
-                  />
-                )
-              })}
-            </g>
-          );
-        })}
-      </svg>
-    );
+              return (
+                <g>
+                  {row.map((value, colIndex) => {
+                    const color: string = this.color(value);
+                    const colWidth: number = EXTENT / row.length;
+                    const x: number = colIndex * colWidth;
+                    
+                    return (
+                      <rect
+                        fill={color}
+                        height={rowHeight}
+                        width={colWidth}
+                        x={x}
+                        y={y}
+                      />
+                    )
+                  })}
+                </g>
+              );
+            })}
+          </svg>
   }
 }

@@ -60,6 +60,6 @@ export function scale(
   return _.flow(
     normalization(range),
     chroma.scale(scale).domain([-1, 1]),
-    color => color.hex(),
+    (color: any) => color.hex(),
   );
 }
