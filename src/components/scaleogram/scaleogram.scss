@@ -1,10 +1,8 @@
-$empty-background-color: #eeeeee;
+$background-color: #eeeeee;
 
 strc-scaleogram {
+  background-color: $background-color;
+  background-color: var(--strc-scaleogram-background-color, $background-color);
+  
   display: inline-block;
-
-  &:empty {
-    background-color: $empty-background-color;
-    background-color: var(--strc-scaleogram-empty-background-color, $empty-background-color);
-  }
 }

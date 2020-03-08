@@ -48,8 +48,8 @@ strc-scaleogram {
   height: 32rem;
   width: 32rem;
 
-  /* This color will be displayed when no data is loaded. */
-  --strc-scaleogram-empty-background-color: #eeeeee;
+  /* The background color will be displayed when no data is loaded. */
+  --strc-scaleogram-background-color: #eeeeee;
 }
 ```
 
