@@ -46,13 +46,11 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
     <svg
       preserveAspectRatio='none'
       viewBox={'0 0 ' + SIZE.join(' ')}
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <linearGradient
           gradientTransform='rotate(90)'
-          id='myGradient'
+          id='gradient'
         >
           {Array.apply(null, {length: (GRADIENT_STEPS)}).map((_, index) => {
             // TODO: Fix if scale does not cross zero
@@ -73,11 +71,9 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
       </defs>
 
       <rect
-        fill="url(#myGradient)"
+        fill="url(#gradient)"
         height='100%'
         width='100%'
-        x='0'
-        y='0'
       />
     </svg>
   );
