@@ -6,16 +6,15 @@ import {
   Watch,
 } from '@stencil/core';
 
-import {
-  range,
-  scale,
-  Scale,
-} from '../../utils/utils';
+import { ColorGradient } from '../color-gradient/color-gradient';
+import { Visualization } from '../visualization/visualization';
 
-/**
- * Extent of the SVG element in relative measure.
- */
-const EXTENT: number = 100;
+import {
+  colorScale,
+  ColorScale,
+  range,
+  Range,
+} from '../../utils/utils';
 
 /**
  * Component of a scaleogram visualization.
@@ -39,7 +38,7 @@ export class Scaleogram {
   /**
    * Color scale used for the scaleogram
    */
-  @State() color: Scale;
+  @State() colorScale: ColorScale;
 
   /**
    * Parsed array of array of numbers.
@@ -50,6 +49,11 @@ export class Scaleogram {
    * Parsed color scale in Chroma.js format
    */
   @State() parsedScale: any;
+
+  /**
+   * Interval of the data.
+   */
+  @State() range: Range;
 
   /**
    * The component is preparing to load.
@@ -74,6 +78,7 @@ export class Scaleogram {
     /* Data was set. */
     try {
       this.parsedData = JSON.parse(newValue);
+      this.updateRange();
       this.updateColorScale();
     } catch(error) {
       console.error(error);
@@ -104,53 +109,87 @@ export class Scaleogram {
     if (!this.parsedData || this.parsedData.length === 0) return;
 
     /* Update color scale. */
-    this.color = scale(range(this.parsedData), this.parsedScale);
+    this.colorScale = colorScale(this.range, this.parsedScale);
+  }
+
+  /**
+   * Updates the data range.
+   */
+  updateRange(): void {
+    /* Do nothing, if data was not parsed. */
+    if (!this.parsedData || this.parsedData.length === 0) return;
+
+    /* Update range. */
+    this.range = range(this.parsedData);
   }
   
   /**
    * Renders the scaleogram visualization
    */
   render() {
-    const parsedData: boolean =
-        (this.parsedData && this.parsedData.length !== 0);
-    const rowHeight: number = (!parsedData)
-        ? undefined
-        : EXTENT / this.parsedData.length;
-    
-    // TODO: Add legend
-    return (!parsedData)
+    return (!this.parsedData || this.parsedData.length === 0)
         ? null
-        : <svg
-            height='100%'
-            preserveAspectRatio='none'
-            version='1.1'
-            viewBox={'0 0 ' + EXTENT + ' ' + EXTENT}
-            width='100%'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            {this.parsedData.map((row, rowIndex) => {
-              const y: number = rowIndex * rowHeight;
+        : (
+            <svg
+              height='100%'
+              preserveAspectRatio='none'
+              viewBox='0 0 100 100'
+              width='100%'
+            >
+              <Visualization
+                colorScale={this.colorScale}
+                data={this.parsedData}
+              />
 
-              return (
+              <svg
+                width='5'
+                x='90'
+              >
+                <ColorGradient
+                  colorScale={this.colorScale}
+                  range={this.range}
+                />
+              </svg>
+
+              {/* TODO: Move to own component! */}
+              {/* <svg
+                preserveAspectRatio='xMidYMin'
+                viewBox={'0 0 100 100'}
+                width='20%'
+                x='83%'
+                y='3%'
+              >
                 <g>
-                  {row.map((value, colIndex) => {
-                    const color: string = this.color(value);
-                    const colWidth: number = EXTENT / row.length;
-                    const x: number = colIndex * colWidth;
-                    
-                    return (
-                      <rect
-                        fill={color}
-                        height={rowHeight}
-                        width={colWidth}
-                        x={x}
-                        y={y}
-                      />
-                    )
-                  })}
+                  <text
+                    dy='10'
+                    x='35%'
+                    y='0'
+                  >
+                    +{(Math.ceil(max) < 1000)
+                      ? Math.ceil(max)
+                      : Math.ceil(max).toExponential(2)
+                    }
+                  </text>
+                  <text
+                    dy='10'
+                    x='35%'
+                    y={0.5 * height * 200} 
+                  >
+                    0
+                  </text>
+                  <text
+                    dy='10'
+                    x='35%'
+                    y={height * 200} 
+                  >
+                    −{(Math.floor(min) > -1000)
+                      ? Math.abs(Math.floor(min))
+                      : Math.abs(Math.floor(min)).toExponential(2)
+                    }
+                  </text>
                 </g>
-              );
-            })}
-          </svg>
+              </svg> */}
+            </svg>
+          );
   }
 }
