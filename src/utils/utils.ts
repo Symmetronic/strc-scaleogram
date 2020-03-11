@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import _ from 'lodash'
+import flow from 'lodash.flow'
 
 /**
  * Type of a color scale function.
@@ -21,7 +21,7 @@ export function colorScale(
   range: Range,
   scale: any = 'RdBu',
 ): (value: number) => string {
-  return _.flow(
+  return flow(
     normalization(range),
     chroma.scale(scale).domain([-1, 1]),
     (color: any) => color.hex(),
@@ -45,11 +45,11 @@ export function normalization(
       );
     }
     
-    return _.cond([
-      [v => v === 0, () => 0],
-      [v => v > 0, (v: number) => v / max],
-      [v => v < 0, (v: number) => -1 * v / min]
-    ])(value);
+    return (value === 0)
+      ? 0
+      : (value > 0)
+        ? value / max
+        : -1 * value / min;
   };
 }
 
@@ -61,11 +61,13 @@ export function normalization(
 export function range(
   values: number[][]
 ): Range {
-  // TODO: Implement more efficiently with only 1 loop
-  return _.flatten(values).reduce((range, value) => {
-    return [
-      (range[0] === undefined) ? value : Math.min(value, range[0]),
-      (range[1] === undefined) ? value : Math.max(value, range[1]),
-    ]
-  }, [undefined, undefined]);
+  let max: number;
+  let min: number;
+  values.forEach(row => {
+    const rowMax: number = Math.max(...row);
+    const rowMin: number = Math.min(...row);
+    max = (max === undefined) ? rowMax : Math.max(max, rowMax);
+    min = (min === undefined) ? rowMin : Math.min(min, rowMin);
+  });
+  return [min, max];
 }

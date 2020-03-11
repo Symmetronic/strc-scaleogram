@@ -43,6 +43,6 @@
   "author": "Symmetronic <simon@symmetronic.com>",
   "dependencies": {
     "chroma-js": "^2.1.0",
-    "lodash": "^4.17.15"
+    "lodash.flow": "^3.5.0"
   }
 }
