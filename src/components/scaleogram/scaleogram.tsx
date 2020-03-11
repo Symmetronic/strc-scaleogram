@@ -6,7 +6,7 @@ import {
   Watch,
 } from '@stencil/core';
 
-import { ColorGradient } from '../color-gradient/color-gradient';
+import { Legend } from '../legend/legend';
 import { Visualization } from '../visualization/visualization';
 
 import {
@@ -22,6 +22,7 @@ import {
 @Component({
   tag: 'strc-scaleogram',
   styleUrl: 'scaleogram.scss',
+  shadow: true,
 })
 export class Scaleogram {
 
@@ -105,8 +106,8 @@ export class Scaleogram {
    * Updates the color scale.
    */
   updateColorScale(): void {
-    /* Do nothing, if data was not parsed. */
-    if (!this.parsedData || this.parsedData.length === 0) return;
+    /* Do nothing, if requirements are not fulfilled. */
+    if (!this.range || !this.parseScale) return;
 
     /* Update color scale. */
     this.colorScale = colorScale(this.range, this.parsedScale);
@@ -130,66 +131,20 @@ export class Scaleogram {
     return (!this.parsedData || this.parsedData.length === 0)
         ? null
         : (
-            <svg
-              height='100%'
-              preserveAspectRatio='none'
-              viewBox='0 0 100 100'
-              width='100%'
-            >
-              <Visualization
-                colorScale={this.colorScale}
-                data={this.parsedData}
-              />
-
-              <svg
-                width='5'
-                x='90'
-              >
-                <ColorGradient
+            <div>
+              <div>
+                <Visualization
+                  colorScale={this.colorScale}
+                  data={this.parsedData}
+                />
+              </div>
+              <div>
+                <Legend
                   colorScale={this.colorScale}
                   range={this.range}
                 />
-              </svg>
-
-              {/* TODO: Move to own component! */}
-              {/* <svg
-                preserveAspectRatio='xMidYMin'
-                viewBox={'0 0 100 100'}
-                width='20%'
-                x='83%'
-                y='3%'
-              >
-                <g>
-                  <text
-                    dy='10'
-                    x='35%'
-                    y='0'
-                  >
-                    +{(Math.ceil(max) < 1000)
-                      ? Math.ceil(max)
-                      : Math.ceil(max).toExponential(2)
-                    }
-                  </text>
-                  <text
-                    dy='10'
-                    x='35%'
-                    y={0.5 * height * 200} 
-                  >
-                    0
-                  </text>
-                  <text
-                    dy='10'
-                    x='35%'
-                    y={height * 200} 
-                  >
-                    −{(Math.floor(min) > -1000)
-                      ? Math.abs(Math.floor(min))
-                      : Math.abs(Math.floor(min)).toExponential(2)
-                    }
-                  </text>
-                </g>
-              </svg> */}
-            </svg>
-          );
+              </div>
+            </div>
+        );
   }
 }

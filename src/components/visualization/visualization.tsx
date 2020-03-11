@@ -35,32 +35,39 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
 
   return (
     <svg
-      preserveAspectRatio='none'
-      viewBox={'0 0 ' + SIZE.join(' ')}
+      height='100%'
+      width='100%'
     >
-      {data.map((row, rowIndex) => {
-        const y: number = rowIndex * rowHeight;
+      <svg
+        height='100%'
+        preserveAspectRatio='none'
+        viewBox={'0 0 ' + SIZE.join(' ')}
+        width='100%'
+      >
+        {data.map((row, rowIndex) => {
+          const y: number = rowIndex * rowHeight;
 
-        return (
-          <g>
-            {row.map((value, colIndex) => {
-              const color: string = colorScale(value);
-              const colWidth: number = SIZE[0] / row.length;
-              const x: number = colIndex * colWidth;
-              
-              return (
-                <rect
-                  fill={color}
-                  height={rowHeight}
-                  width={colWidth}
-                  x={x}
-                  y={y}
-                />
-              )
-            })}
-          </g>
-        );
-      })}
+          return (
+            <g>
+              {row.map((value, colIndex) => {
+                const color: string = colorScale(value);
+                const colWidth: number = SIZE[0] / row.length;
+                const x: number = colIndex * colWidth;
+                
+                return (
+                  <rect
+                    fill={color}
+                    height={rowHeight}
+                    width={colWidth}
+                    x={x}
+                    y={y}
+                  />
+                )
+              })}
+            </g>
+          );
+        })}
+      </svg>
     </svg>
   );
 }

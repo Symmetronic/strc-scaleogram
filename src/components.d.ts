@@ -15,6 +15,7 @@ export namespace Components {
     * Data as string of a JSON array of arrays of numbers.
     */
     'data': string;
+    'legend': boolean;
     /**
     * Color scale as string in Chroma.js format.
     */
@@ -41,6 +42,7 @@ declare namespace LocalJSX {
     * Data as string of a JSON array of arrays of numbers.
     */
     'data'?: string;
+    'legend'?: boolean;
     /**
     * Color scale as string in Chroma.js format.
     */
