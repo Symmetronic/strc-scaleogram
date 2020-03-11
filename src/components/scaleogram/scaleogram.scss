@@ -1,7 +1,10 @@
+$height: 8rem;
 $legend-width: 7rem;
 
 :host {
   display: block;
+  height: $height;
+  height: var(--strc-scaleogram-height, $height);
 
   & > div {
     display: grid;

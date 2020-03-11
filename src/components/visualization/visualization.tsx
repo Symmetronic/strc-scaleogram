@@ -34,6 +34,7 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
   const rowHeight: number = SIZE[1] / data.length;
 
   return (
+    // TODO: Check for unneccessary attributes
     <svg
       height='100%'
       width='100%'

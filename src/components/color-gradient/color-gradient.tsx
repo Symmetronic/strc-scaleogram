@@ -5,11 +5,13 @@ import {
   Range,
 } from '../../utils/utils';
 
+// TODO: Check if more or less gradient steps perform better.
 /**
  * Number of steps in the gradient
  */
-const GRADIENT_STEPS: number = 20;
+const GRADIENT_STEPS: number = 100;
 
+// TODO: Check if size is neccessary!
 /**
  * Size of the SVG in relative measures.
  */
@@ -43,6 +45,7 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
   const min: number = Math.min(...range);
 
   return (
+    // TODO: Check for unneccessary attributes (e.g. SIZE)
     <svg
       preserveAspectRatio='none'
       viewBox={'0 0 ' + SIZE.join(' ')}
@@ -52,13 +55,14 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
           gradientTransform='rotate(90)'
           id='gradient'
         >
-          {Array.apply(null, {length: (GRADIENT_STEPS)}).map((_, index) => {
+          {Array.apply(null, {length: (GRADIENT_STEPS + 1)}).map((_, index) => {
             // TODO: Fix if scale does not cross zero
+            // TODO: Check if min and max color value are included due to GRADIENT_STEPS
             const color: string = colorScale((index < (GRADIENT_STEPS / 2))
               ? ((GRADIENT_STEPS / 2) - index) / (GRADIENT_STEPS / 2) * max
               : (index - (GRADIENT_STEPS / 2)) / (GRADIENT_STEPS / 2) * min
           );
-            const offset: number = index / (GRADIENT_STEPS - 1) * 100;
+            const offset: number = index / (GRADIENT_STEPS) * 100;
 
             return (
               <stop

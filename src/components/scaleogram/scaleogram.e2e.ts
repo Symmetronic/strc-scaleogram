@@ -19,6 +19,7 @@ describe('Scaleogram', () => {
   });
 
   it('renders a SVG when valid data is specified', async () => {
+    // TODO: Fix e2e tests
     expect(await element.find('svg')).toBeFalsy();
 
     element.setProperty('data', '[[0, 1], [2, 3], [4, 5, 6, 7]]');

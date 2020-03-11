@@ -30,7 +30,7 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 ### Attributes
 
 * `data`: String of an array of arrays containing the wavelet coefficients.
-* `scale`: Color scale as a string. Any valid string of a [Chroma.js color scale](https://vis4.net/chromajs/#color-scales) can be used.
+* `scale` (optional): Color scale as a string. Any valid string of a [Chroma.js color scale](https://vis4.net/chromajs/#color-scales) can be used.
 
 ```html
 <strc-scaleogram
@@ -45,10 +45,15 @@ You can adjust the style of the scaleogram.
 
 ```css
 strc-scaleogram {
-  /* The background color will be displayed when no data is loaded. */
-  background-color: #eeeeee;
-  height: 32rem;
-  width: 32rem;
+  --strc-scaleogram-height: 16rem;
+  
+  /*
+   * Width of the scaleogram's legend.
+   * This can be used to align the scaleogram with e.g. a line chart.
+   * Set the right margin of a line chart to the same value as the
+   * legend width and the x axes should be perfectly aligned.
+   */
+  --strc-scaleogram-legend-width: 7rem;
 }
 ```
 

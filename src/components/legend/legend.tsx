@@ -35,6 +35,7 @@ export const Legend: FunctionalComponent<LegendProps> = ({
   const min: number = Math.min(...range);
 
   return (
+    // TODO: Check for unneccessary SVG attributes
     <svg
       height='100%'
       width='100%'
@@ -56,9 +57,10 @@ export const Legend: FunctionalComponent<LegendProps> = ({
           font-size='0.8em'
           y='0'
         >
-          +{(Math.ceil(max) < 1000)
-            ? Math.ceil(max)
-            : Math.ceil(max).toExponential(2)
+          {/* TODO: Use helper for displaying number in nice format */}
+          +{(Math.round(max) < 1000)
+            ? Math.round(max)
+            : Math.round(max).toExponential(2)
           }
         </text>
         <text
@@ -73,9 +75,10 @@ export const Legend: FunctionalComponent<LegendProps> = ({
           font-size='0.8em'
           y='100%'
         >
-          −{(Math.floor(min) > -1000)
-            ? Math.abs(Math.floor(min))
-            : Math.abs(Math.floor(min)).toExponential(2)
+          {/* TODO: Use helper for displaying number in nice format */}
+          −{(Math.round(min) > -1000)
+            ? Math.abs(Math.round(min))
+            : Math.abs(Math.round(min)).toExponential(2)
           }
         </text>
       </svg>
