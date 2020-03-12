@@ -4,6 +4,7 @@ import { ColorGradient } from '../color-gradient/color-gradient';
 
 import {
   ColorScale,
+  criticalGradientPoints,
   Range,
 } from '../../utils/utils';
 
@@ -31,8 +32,7 @@ export const Legend: FunctionalComponent<LegendProps> = ({
   colorScale,
   range,
 }) => {
-  const max: number = Math.max(...range);
-  const min: number = Math.min(...range);
+  const criticalPoints: number[] = criticalGradientPoints(range);
 
   return (
     // TODO: Check for unneccessary SVG attributes
@@ -41,8 +41,8 @@ export const Legend: FunctionalComponent<LegendProps> = ({
       width='100%'
     >
       <svg
-        x='1.5em'
-        width='1.5em'
+        x='20%'
+        width='20%'
       >
         <ColorGradient
           colorScale={colorScale}
@@ -50,37 +50,37 @@ export const Legend: FunctionalComponent<LegendProps> = ({
         />
       </svg>
       <svg
-        x='3.3em'
+        x='40%'
       >
-        <text
-          dy='1em'
-          font-size='0.8em'
-          y='0'
-        >
-          {/* TODO: Use helper for displaying number in nice format */}
-          +{(Math.round(max) < 1000)
-            ? Math.round(max)
-            : Math.round(max).toExponential(2)
-          }
-        </text>
-        <text
-          dy='0.5em'
-          font-size='0.8em'
-          y='50%'
-        >
-          0
-        </text>
-        <text
-          dy='0'
-          font-size='0.8em'
-          y='100%'
-        >
-          {/* TODO: Use helper for displaying number in nice format */}
-          −{(Math.round(min) > -1000)
-            ? Math.abs(Math.round(min))
-            : Math.abs(Math.round(min)).toExponential(2)
-          }
-        </text>
+        {criticalPoints.map((criticalPoint, index) => {
+          const percentage: number = index / (criticalPoints.length - 1);
+          const fontSize: number = 12;
+          // TODO: Display number in nicer format (Put to helper function)
+          const label: string = Math.round(criticalPoint).toExponential(2);
+          const y: number = 100 * percentage;
+          const dy: number = fontSize * (1-percentage);
+
+          return (
+            <g>
+              {/* TODO: Adjust positioning of line, probably with spacing of gradient on top and bottom */}
+              <line
+                x1='0'
+                x2='5%'
+                y1={y + '%'}
+                y2={y + '%'}
+                stroke='black'
+              />
+              <text
+                dx='10%'
+                dy={dy + 'px'}
+                font-size={fontSize + 'px'}
+                y={y + '%'}
+              >
+                {label}
+              </text>
+            </g>
+          );
+        })}
       </svg>
     </svg>
   );

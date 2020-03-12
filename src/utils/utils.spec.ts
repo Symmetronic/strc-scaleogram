@@ -1,5 +1,6 @@
 import {
   colorScale,
+  criticalGradientPoints,
   normalization,
   range,
 } from './utils';
@@ -36,6 +37,10 @@ describe('Scaleogram', () => {
         s(3);
       }).not.toThrowError();
     });
+  });
+
+  describe('criticalGradientPoints', () => {
+    // TODO: Add tests
   });
 
   describe('normalization', () => {

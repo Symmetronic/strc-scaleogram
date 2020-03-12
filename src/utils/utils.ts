@@ -29,12 +29,30 @@ export function colorScale(
 }
 
 /**
+ * Determines critical points for a gradient depending on a range.
+ * @param  range Range of the gradient.
+ * @return       Array containing critical points in the gradient.
+ */
+export function criticalGradientPoints(
+  range: Range,
+): number[] {
+  const max: number = Math.max(...range);
+  const min: number = Math.min(...range);
+
+  let criticalPoints: number[] = [0];
+  if (max > 0) criticalPoints.unshift(max);
+  if (min < 0) criticalPoints.push(min);
+
+  return criticalPoints;
+}
+
+/**
  * Creates a normalization function for normalizing between -1 and 1.
  * @param  range Array containing minimum and maximum values.
  * @return       Normalization function for normalizing between -1 and 1.
  */
 export function normalization(
-  range: [number, number]
+  range: Range,
 ): (value: number) => number {
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);

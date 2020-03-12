@@ -2,6 +2,7 @@ import { FunctionalComponent, h } from '@stencil/core';
 
 import {
   ColorScale,
+  criticalGradientPoints,
   Range,
 } from '../../utils/utils';
 
@@ -10,12 +11,6 @@ import {
  * Number of steps in the gradient
  */
 const GRADIENT_STEPS: number = 100;
-
-// TODO: Check if size is neccessary!
-/**
- * Size of the SVG in relative measures.
- */
-const SIZE: [number, number] = [100, 100];
 
 /**
  * Properties of the color gradient.
@@ -44,25 +39,33 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);
 
+  const criticalPoints: number[] = criticalGradientPoints(range);
+
   return (
-    // TODO: Check for unneccessary attributes (e.g. SIZE)
-    <svg
-      preserveAspectRatio='none'
-      viewBox={'0 0 ' + SIZE.join(' ')}
-    >
+    <svg>
       <defs>
         <linearGradient
           gradientTransform='rotate(90)'
           id='gradient'
         >
-          {Array.apply(null, {length: (GRADIENT_STEPS + 1)}).map((_, index) => {
+          {Array.apply(null, {length: (GRADIENT_STEPS)}).map((_, index) => {
+
+            const percentage: number = index / (GRADIENT_STEPS - 1);
+            
+            // TODO: Unify different cases!
             // TODO: Fix if scale does not cross zero
-            // TODO: Check if min and max color value are included due to GRADIENT_STEPS
-            const color: string = colorScale((index < (GRADIENT_STEPS / 2))
-              ? ((GRADIENT_STEPS / 2) - index) / (GRADIENT_STEPS / 2) * max
-              : (index - (GRADIENT_STEPS / 2)) / (GRADIENT_STEPS / 2) * min
-          );
-            const offset: number = index / (GRADIENT_STEPS) * 100;
+            const domainValue: number = 1 - 2 * percentage;
+            const color: string = (criticalPoints.length === 2)
+              ? (criticalPoints[0] === 0)
+                ? colorScale(min * -1 * (domainValue - 1))
+                : colorScale(max * domainValue)
+              : (criticalPoints.length === 3)
+                ? (percentage < 0.5)
+                  ? colorScale(max * domainValue)
+                  : colorScale(min * -1 * domainValue)
+                : '';
+
+            const offset: number = 100 * percentage;
 
             return (
               <stop
