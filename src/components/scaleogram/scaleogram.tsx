@@ -6,7 +6,6 @@ import {
   Watch,
 } from '@stencil/core';
 
-import { Legend } from '../legend/legend';
 import { Visualization } from '../visualization/visualization';
 
 import {
@@ -139,7 +138,7 @@ export class Scaleogram {
                 />
               </div>
               <div>
-                <Legend
+                <strc-scaleogram-legend
                   colorScale={this.colorScale}
                   range={this.range}
                 />

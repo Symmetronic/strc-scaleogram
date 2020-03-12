@@ -7,7 +7,10 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  ColorScale,
+  Range,
+} from './utils/utils';
 
 export namespace Components {
   interface StrcScaleogram {
@@ -20,6 +23,16 @@ export namespace Components {
     */
     'scale': string;
   }
+  interface StrcScaleogramLegend {
+    /**
+    * Color scale of the legend.
+    */
+    'colorScale': ColorScale;
+    /**
+    * Range of the legend.
+    */
+    'range': Range;
+  }
 }
 
 declare global {
@@ -30,8 +43,15 @@ declare global {
     prototype: HTMLStrcScaleogramElement;
     new (): HTMLStrcScaleogramElement;
   };
+
+  interface HTMLStrcScaleogramLegendElement extends Components.StrcScaleogramLegend, HTMLStencilElement {}
+  var HTMLStrcScaleogramLegendElement: {
+    prototype: HTMLStrcScaleogramLegendElement;
+    new (): HTMLStrcScaleogramLegendElement;
+  };
   interface HTMLElementTagNameMap {
     'strc-scaleogram': HTMLStrcScaleogramElement;
+    'strc-scaleogram-legend': HTMLStrcScaleogramLegendElement;
   }
 }
 
@@ -46,9 +66,20 @@ declare namespace LocalJSX {
     */
     'scale'?: string;
   }
+  interface StrcScaleogramLegend {
+    /**
+    * Color scale of the legend.
+    */
+    'colorScale'?: ColorScale;
+    /**
+    * Range of the legend.
+    */
+    'range'?: Range;
+  }
 
   interface IntrinsicElements {
     'strc-scaleogram': StrcScaleogram;
+    'strc-scaleogram-legend': StrcScaleogramLegend;
   }
 }
 
@@ -59,6 +90,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'strc-scaleogram': LocalJSX.StrcScaleogram & JSXBase.HTMLAttributes<HTMLStrcScaleogramElement>;
+      'strc-scaleogram-legend': LocalJSX.StrcScaleogramLegend & JSXBase.HTMLAttributes<HTMLStrcScaleogramLegendElement>;
     }
   }
 }

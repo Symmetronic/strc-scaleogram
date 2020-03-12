@@ -49,6 +49,7 @@ strc-scaleogram {
   
   /*
    * Width of the scaleogram's legend.
+   * The default value is 7rem.
    * This can be used to align the scaleogram with e.g. a line chart.
    * Set the right margin of a line chart to the same value as the
    * legend width and the x axes should be perfectly aligned.

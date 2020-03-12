@@ -42,7 +42,10 @@ export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
   const criticalPoints: number[] = criticalGradientPoints(range);
 
   return (
-    <svg>
+    <svg
+      height='100%'
+      width='100%'
+    >
       <defs>
         <linearGradient
           gradientTransform='rotate(90)'

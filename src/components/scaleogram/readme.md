@@ -13,6 +13,19 @@
 | `scale`  | `scale`   | Color scale as string in Chroma.js format.           | `string` | `'RdBu'`    |
 
 
+## Dependencies
+
+### Depends on
+
+- [strc-scaleogram-legend](../legend)
+
+### Graph
+```mermaid
+graph TD;
+  strc-scaleogram --> strc-scaleogram-legend
+  style strc-scaleogram fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
