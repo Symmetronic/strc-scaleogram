@@ -47,6 +47,23 @@ export function criticalGradientPoints(
 }
 
 /**
+ * Returns a nicer readable representation of a number.
+ * @param  value Input number.
+ * @return       Readable representation.
+ */
+export function niceNumber(value: number): string {
+  return (value === 0)
+      /* Return zero without decimals. */
+      ? '0'
+      /* Show two decimals. */
+      : value.toExponential(2)
+          /* Leave out exponentials if not neccessary. */
+          .replace(/e\+0/g, '')
+          /* Use correct minus sign. */
+          .replace(/-/g, '−');
+}
+
+/**
  * Creates a normalization function for normalizing between -1 and 1.
  * @param  range Array containing minimum and maximum values.
  * @return       Normalization function for normalizing between -1 and 1.

@@ -5,6 +5,7 @@ import { ColorGradient } from '../color-gradient/color-gradient';
 import {
   ColorScale,
   criticalGradientPoints,
+  niceNumber,
   Range,
 } from '../../utils/utils';
 
@@ -32,29 +33,24 @@ export class Legend {
    * Renders the legend.
    */
   render() {
-    const criticalPoints: number[] = criticalGradientPoints(this.range);
-
-    return (
-      <div>
-        <div>
-          <ColorGradient
-            colorScale={this.colorScale}
-            range={this.range}
-          />
-        </div>
-        <div class='labels'>
-          {criticalPoints.map(criticalPoint => {
-            // TODO: Display number in nicer format (Put to helper function)
-            const label: string = Math.round(criticalPoint).toExponential(2);
-
-            return (
+    return (!this.colorScale || !this.range)
+        ? null
+        : (
+            <div>
               <div>
-                {label}
+                <ColorGradient
+                  colorScale={this.colorScale}
+                  range={this.range}
+                />
               </div>
-            );
-          })}
-        </div>
-      </div>
-    );
+              <div class='labels'>
+                {criticalGradientPoints(this.range).map(criticalPoint => (
+                  <div>
+                    {niceNumber(criticalPoint)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
   }
 }

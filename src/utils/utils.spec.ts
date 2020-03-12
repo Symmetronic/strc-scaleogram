@@ -43,6 +43,10 @@ describe('Scaleogram', () => {
     // TODO: Add tests
   });
 
+  describe('niceNumber', () => {
+    // TODO: Add tests
+  });
+
   describe('normalization', () => {
     it('throws an error, if a value is not contained in the range', () => {
       const normalize = normalization([-8, 9]);
