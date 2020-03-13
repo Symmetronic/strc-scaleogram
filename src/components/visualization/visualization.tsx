@@ -3,11 +3,6 @@ import { FunctionalComponent, h } from '@stencil/core';
 import { ColorScale } from '../../utils/utils';
 
 /**
- * Size of the SVG in relative measures.
- */
-const SIZE: [number, number] = [100, 100];
-
-/**
  * Properties of the scaleogram visualization.
  */
 interface VisualizationProps {
@@ -31,44 +26,36 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
   colorScale,
   data,
 }) => {
-  const rowHeight: number = SIZE[1] / data.length;
+  const rowHeight: number = 100 / data.length;
 
   return (
-    // TODO: Check for unneccessary attributes
     <svg
       height='100%'
       width='100%'
     >
-      <svg
-        height='100%'
-        preserveAspectRatio='none'
-        viewBox={'0 0 ' + SIZE.join(' ')}
-        width='100%'
-      >
-        {data.map((row, rowIndex) => {
-          const y: number = rowIndex * rowHeight;
+      {data.map((row, rowIndex) => {
+        const y: number = 100 * rowIndex / data.length;
 
-          return (
-            <g>
-              {row.map((value, colIndex) => {
-                const color: string = colorScale(value);
-                const colWidth: number = SIZE[0] / row.length;
-                const x: number = colIndex * colWidth;
-                
-                return (
-                  <rect
-                    fill={color}
-                    height={rowHeight}
-                    width={colWidth}
-                    x={x}
-                    y={y}
-                  />
-                )
-              })}
-            </g>
-          );
-        })}
-      </svg>
+        return (
+          <g>
+            {row.map((value, colIndex) => {
+              const color: string = colorScale(value);
+              const colWidth: number = 100 / row.length;
+              const x: number = 100 * colIndex / row.length;
+              
+              return (
+                <rect
+                  fill={color}
+                  height={rowHeight + '%'}
+                  width={colWidth + '%'}
+                  x={x + '%'}
+                  y={y + '%'}
+                />
+              )
+            })}
+          </g>
+        );
+      })}
     </svg>
   );
 }
