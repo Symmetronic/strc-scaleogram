@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description                                          | Type     | Default     |
-| -------- | --------- | ---------------------------------------------------- | -------- | ----------- |
-| `data`   | `data`    | Data as string of a JSON array of arrays of numbers. | `string` | `undefined` |
-| `scale`  | `scale`   | Color scale as string in Chroma.js format.           | `string` | `'RdBu'`    |
+| Property      | Attribute      | Description                                          | Type     | Default     |
+| ------------- | -------------- | ---------------------------------------------------- | -------- | ----------- |
+| `data`        | `data`         | Data as string of a JSON array of arrays of numbers. | `string` | `undefined` |
+| `invertScale` | `invert-scale` | Boolean if scale should be inverted as a string.     | `string` | `'true'`    |
+| `scale`       | `scale`        | Color scale as string in Chroma.js format.           | `string` | `'RdBu'`    |
 
 
 ## Dependencies

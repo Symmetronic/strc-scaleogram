@@ -19,6 +19,10 @@ export namespace Components {
     */
     'data': string;
     /**
+    * Boolean if scale should be inverted as a string.
+    */
+    'invertScale': string;
+    /**
     * Color scale as string in Chroma.js format.
     */
     'scale': string;
@@ -61,6 +65,10 @@ declare namespace LocalJSX {
     * Data as string of a JSON array of arrays of numbers.
     */
     'data'?: string;
+    /**
+    * Boolean if scale should be inverted as a string.
+    */
+    'invertScale'?: string;
     /**
     * Color scale as string in Chroma.js format.
     */

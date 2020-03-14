@@ -10,17 +10,17 @@
 
   <style>
     strc-scaleogram {
-      /* The background color will be displayed when no data is loaded. */
-      background-color: #eeeeee;
-      height: 32rem;
-      width: 32rem;
+      --strc-scaleogram-height: 16rem;
+      --strc-scaleogram-legend-width: 8rem;
     }
   </style>
 </head>
 <body>
 
+  <!-- TODO: Use data as previously -->
   <strc-scaleogram
-    data="[[-1, 2, -3, 4], [0, 6], [7]]"
+    data="[[7], [0, 6], [-1, 2, -3, 4]]"
+    invert-scale='true'
     scale="RdBu"
   />
 

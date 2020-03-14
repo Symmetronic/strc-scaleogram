@@ -30,12 +30,14 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 ### Attributes
 
 * `data`: String of an array of arrays containing the wavelet coefficients.
+* `invert-scale` (optional): Set to `true` if you want to invert the direction of the color scale set by the `scale` attribute.
 * `scale` (optional): Color scale as a string. Any valid string of a [Chroma.js color scale](https://vis4.net/chromajs/#color-scales) can be used.
 
 ```html
 <strc-scaleogram
-  data="[[-1, 2, -3, 4], [0, 6], [7]]"
-  scale="['#7f3b08', '#f7f7f7', '#2d004b']"
+  data="[[7], [0, 6], [-1, 2, -3, 4]]"
+  invert-scale="true"
+  scale="['#e66101', '#fdb863', '#f7f7f7', '#b2abd2', '#5e3c99']"
 />
 ```
 

@@ -13,17 +13,23 @@ export type Range = [number, number];
 
 /**
  * Creates a color scale.
- * @param  range Array containing minimum and maximum values.
- * @param  scale Range of the color scale,
- * @return       Color scale.
+ * @param  range  Array containing minimum and maximum values.
+ * @param  scale  Range of the color scale,
+ * @param  invert True if color scale should be inverted.
+ * @return        Color scale.
  */
 export function colorScale(
   range: Range,
   scale: any = 'RdBu',
+  invert: boolean = false,
 ): (value: number) => string {
+  /* Determine factor for possible inversion. */
+  const direction: number = (!invert) ? 1 : -1;
+
+  /* Return color scale. */
   return flow(
     normalization(range),
-    chroma.scale(scale).domain([-1, 1]),
+    chroma.scale(scale).domain([direction * -1, direction * 1]),
     (color: any) => color.hex(),
   );
 }
@@ -36,13 +42,16 @@ export function colorScale(
 export function criticalGradientPoints(
   range: Range,
 ): number[] {
+  /* Determine minimum and maximum. */
   const max: number = Math.max(...range);
   const min: number = Math.min(...range);
 
+  /* Determine critical points. */
   let criticalPoints: number[] = [0];
   if (max > 0) criticalPoints.unshift(max);
   if (min < 0) criticalPoints.push(min);
 
+  /* Return critical points. */
   return criticalPoints;
 }
 
@@ -62,6 +71,7 @@ export function interpolation(
   /* Highest index for this data. */
   const xMax: number = values.length - 1;
 
+  /* Return interpolation function. */
   return (percentage: number) => {
     /* Clamp at boundary. */
     if (percentage < 0) return values[0];
@@ -72,6 +82,7 @@ export function interpolation(
     const i: number = Math.floor(x);
     const lambda: number = x - i;
 
+    /* Return interpolation value. */
     return (lambda === 0)
         /* Return exact value. */
         ? values[i]
@@ -98,6 +109,7 @@ export function niceNumber(value: number): string {
   /* Add plus sign for positive values. */
   if (value > 0) nice = '+' + nice;
 
+  /* Return nicely formatted string of number. */
   return nice;
 }
 
@@ -109,15 +121,20 @@ export function niceNumber(value: number): string {
 export function normalization(
   range: Range,
 ): (value: number) => number {
+  /* Determine boundary. */
   const max: number = Math.max(0, ...range);
   const min: number = Math.min(0, ...range);
+
+  /* Return normalization function. */
   return (value: number) => {
+    /* Check if value lies in boundary. */
     if (value > max || value < min) {
       throw new Error(
         'Value ' + value + ' lies out of bounds [' + min + ', ' + max + ']'
       );
     }
     
+    /* Normalize value. */
     return (value === 0)
       ? 0
       : (value > 0)
@@ -134,6 +151,7 @@ export function normalization(
 export function range(
   values: number[][]
 ): Range {
+  /* Determine minimum and maximum values. */
   let max: number;
   let min: number;
   values.forEach(row => {
@@ -142,5 +160,7 @@ export function range(
     max = (max === undefined) ? rowMax : Math.max(max, rowMax);
     min = (min === undefined) ? rowMin : Math.min(min, rowMin);
   });
+
+  /* Return range. */
   return [min, max];
 }
