@@ -33,6 +33,8 @@ export class Legend {
    * Renders the legend.
    */
   render() {
+    const criticalPoints: number[] = criticalGradientPoints(this.range);
+
     return (!this.colorScale || !this.range)
         ? null
         : (
@@ -43,13 +45,16 @@ export class Legend {
                   range={this.range}
                 />
               </div>
-              <div class='labels'>
-                {criticalGradientPoints(this.range).map(criticalPoint => (
-                  <div>
-                    {niceNumber(criticalPoint)}
+              {(criticalPoints.length <= 1)
+                ? null
+                : <div class='labels'>
+                    {criticalPoints.map(criticalPoint => (
+                      <div>
+                        {niceNumber(criticalPoint)}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+              }
             </div>
           );
   }
