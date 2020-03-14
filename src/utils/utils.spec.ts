@@ -43,6 +43,10 @@ describe('Scaleogram', () => {
     // TODO: Add tests
   });
 
+  describe('interpolation', () => {
+    // TODO: Add tests
+  })
+
   describe('niceNumber', () => {
     // TODO: Add tests
   });

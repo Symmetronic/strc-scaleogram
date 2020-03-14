@@ -47,6 +47,35 @@ export function criticalGradientPoints(
 }
 
 /**
+ * Creates an interpolation function for values of an array.  
+ * @param  values Array of values to interpolate between.
+ * @return        Interpolation function for values of an array.
+ */
+export function interpolation(
+  values: number[],
+): (percentage: number) => number {
+  /* Highest index for this data. */
+  const xMax: number = values.length - 1;
+
+  return (percentage: number) => {
+    /* Clamp at boundary. */
+    if (percentage < 0) return values[0];
+    if (percentage > 1) return values[xMax];
+
+    /* Determine attributes. */
+    const x: number = percentage * xMax;
+    const i: number = Math.floor(x);
+    const lambda: number = x - i;
+
+    return (lambda === 0)
+        /* Return exact value. */
+        ? values[i]
+        /* Return interpolated value. */
+        : (1 - lambda) * values[i] + lambda * values[i + 1];
+  };
+}
+
+/**
  * Returns a nicer readable representation of a number.
  * @param  value Input number.
  * @return       Readable representation.
@@ -63,7 +92,7 @@ export function niceNumber(value: number): string {
           .replace(/-/g, '−');
   /* Add plus sign for positive values. */
   if (value > 0) nice = '+' + nice;
-  
+
   return nice;
 }
 
