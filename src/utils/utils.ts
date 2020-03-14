@@ -71,8 +71,8 @@ export function niceNumber(value: number): string {
 export function normalization(
   range: Range,
 ): (value: number) => number {
-  const max: number = Math.max(...range);
-  const min: number = Math.min(...range);
+  const max: number = Math.max(0, ...range);
+  const min: number = Math.min(0, ...range);
   return (value: number) => {
     if (value > max || value < min) {
       throw new Error(

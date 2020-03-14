@@ -76,6 +76,14 @@ describe('Scaleogram', () => {
       expect(normalize(0)).toBe(0);
     });
 
+    it('automatically extends ranges to zero', () => {
+      const n1 = normalization([2, 5]);
+      expect(n1(0)).toBe(0);
+
+      const n2 = normalization([-6, -1]);
+      expect(n2(0)).toBe(0);
+    });
+
     it('normalizes values between -1 and 1', () => {
       const n1 = normalization([3, 5]);
       expect(n1(3)).toBe(0.6);
