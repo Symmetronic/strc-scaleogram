@@ -54,6 +54,11 @@ export function criticalGradientPoints(
 export function interpolation(
   values: number[],
 ): (percentage: number) => number {
+  /* Check for valid input. */
+  if (values.length === 0) {
+    throw new Error('Cannot create interpolation function for an empty array.');
+  }
+
   /* Highest index for this data. */
   const xMax: number = values.length - 1;
 
