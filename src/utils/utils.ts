@@ -52,7 +52,7 @@ export function criticalGradientPoints(
  * @return       Readable representation.
  */
 export function niceNumber(value: number): string {
-  return (value === 0)
+  let nice: string = (value === 0)
       /* Return zero without decimals. */
       ? '0'
       /* Show two decimals. */
@@ -61,6 +61,10 @@ export function niceNumber(value: number): string {
           .replace(/e\+0/g, '')
           /* Use correct minus sign. */
           .replace(/-/g, '−');
+  /* Add plus sign for positive values. */
+  if (value > 0) nice = '+' + nice;
+  
+  return nice;
 }
 
 /**
