@@ -31,6 +31,7 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
   return (
     <svg
       height='100%'
+      shape-rendering='crispEdges'
       width='100%'
     >
       {data.map((row, rowIndex) => {
