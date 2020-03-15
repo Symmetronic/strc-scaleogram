@@ -29,7 +29,7 @@ export function colorScale(
   /* Return color scale. */
   return flow(
     normalization(range),
-    chroma.scale(scale).domain([direction * -1, direction * 1]),
+    chroma.scale(scale).mode('lab').domain([direction * -1, direction * 1]),
     (color: any) => color.hex(),
   );
 }
