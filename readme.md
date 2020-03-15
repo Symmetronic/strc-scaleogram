@@ -47,7 +47,15 @@ You can adjust the style of the scaleogram.
 
 ```css
 strc-scaleogram {
+  /*
+   * Height of the visualization.
+   */
   --strc-scaleogram-height: 16rem;
+
+  /*
+   * Color of the labels.
+   */
+  --strc-scaleogram-label-color: #000000;
   
   /*
    * Width of the scaleogram's legend.
