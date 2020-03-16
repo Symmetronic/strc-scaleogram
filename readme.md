@@ -36,6 +36,7 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 ```html
 <strc-scaleogram
   data="[
+    [3],
     [5, -5],
     [0, 2, -3, 4],
     [-8, 1, 3, -1, 0, 5, -3, -1]
