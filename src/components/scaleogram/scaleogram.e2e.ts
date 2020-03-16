@@ -18,13 +18,12 @@ describe('Scaleogram', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('renders a SVG when valid data is specified', async () => {
-    // TODO: Fix e2e tests
-    expect(await element.find('svg')).toBeFalsy();
+  it('renders an SVG when valid data is specified', async () => {
+    expect(await page.find('strc-scaleogram >>> svg')).toBeFalsy();
 
     element.setProperty('data', '[[0, 1], [2, 3], [4, 5, 6, 7]]');
     await page.waitForChanges();
 
-    expect(await element.find('svg')).toBeTruthy();
+    expect(await page.find('strc-scaleogram >>> svg')).toBeTruthy();
   });
 });
