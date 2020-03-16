@@ -1,9 +1,9 @@
 import {
   colorScale,
   criticalGradientPoints,
+  niceNumber,
   normalization,
   range,
-  Range,
 } from './utils';
 
 describe('Scaleogram', () => {
@@ -82,10 +82,30 @@ describe('Scaleogram', () => {
 
   describe('interpolation', () => {
     // TODO: Add tests
-  })
+  });
 
   describe('niceNumber', () => {
-    // TODO: Add tests
+    it('returns zero without further formatting', () => {
+      expect(niceNumber(0)).toEqual('0');
+    });
+
+    it('shows 2 decimals', () => {
+      expect(niceNumber(3.14159)).toEqual('+3.14');
+      expect(niceNumber(3)).toEqual('+3.00');
+      expect(niceNumber(313)).toEqual('+3.13e+2');
+    });
+
+    it('replaces the minus sign', () => {
+      expect(niceNumber(-42.0)).toEqual('−4.20e+1');
+      expect(niceNumber(-0.1)).toEqual('−1.00e−1');
+    });
+
+    it('converts numbers to scientific notation', () => {
+      expect(niceNumber(10)).toEqual('+1.00e+1');
+      expect(niceNumber(0.1)).toEqual('+1.00e−1');
+      expect(niceNumber(-10)).toEqual('−1.00e+1');
+      expect(niceNumber(-0.1)).toEqual('−1.00e−1');
+    });
   });
 
   describe('normalization', () => {

@@ -73,7 +73,7 @@ export function interpolation(
 
   /* Return interpolation function. */
   return (percentage: number) => {
-    /* Clamp at boundary. */
+    /* Clamp to boundary. */
     if (percentage < 0) return values[0];
     if (percentage > 1) return values[xMax];
 
