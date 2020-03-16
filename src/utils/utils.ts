@@ -37,7 +37,7 @@ export function colorScale(
 /**
  * Determines critical points for a gradient depending on a range.
  * @param  range Range of the gradient.
- * @return       Array containing critical points in the gradient.
+ * @return       Array of critical points in the gradient in order from highest to lowest.
  */
 export function criticalGradientPoints(
   range: Range,

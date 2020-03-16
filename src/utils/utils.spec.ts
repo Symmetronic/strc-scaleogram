@@ -3,6 +3,7 @@ import {
   criticalGradientPoints,
   normalization,
   range,
+  Range,
 } from './utils';
 
 describe('Scaleogram', () => {
@@ -37,10 +38,46 @@ describe('Scaleogram', () => {
         s(3);
       }).not.toThrowError();
     });
+
+    it('can invert scales', () => {
+      const min: string = '#e66101';
+      const center: string = '#f7f7f7';
+      const max: string = '#5e3c99';
+      const s = colorScale([-7, 8], [min, center, max], true);
+      expect(s(-7)).toEqual(max);
+      expect(s(0)).toEqual(center);
+      expect(s(8)).toEqual(min);
+    });
   });
 
   describe('criticalGradientPoints', () => {
-    // TODO: Add tests
+    it('always contains zero', () => {
+      expect(criticalGradientPoints([1, 5])).toContain(0);
+      expect(criticalGradientPoints([-6, -3])).toContain(0);
+      expect(criticalGradientPoints([-2, 7])).toContain(0);
+      expect(criticalGradientPoints([0, 0])).toContain(0);
+    });
+
+    it('only adds the maximum if it has a value larger than zero', () => {
+      expect(criticalGradientPoints([-7, -2])).not.toContain(-2);
+    });
+
+    it('only adds the minimum if it has a value less than zero', () => {
+      expect(criticalGradientPoints([3, 6])).not.toContain(3);
+    });
+
+    it('returns critical points in order from highest to lowest', () => {
+      expect(criticalGradientPoints([-4, 7])).toEqual([7, 0, -4]);
+    });
+
+    it('cares not about the order of the range', () => {
+      const min: number = -7;
+      const max: number = 3;
+      const cP1: number[] = criticalGradientPoints([min, max]);
+      const cP2: number[] = criticalGradientPoints([max, min]);
+      expect(cP1).toEqual([max, 0, min]);
+      expect(cP2).toEqual([max, 0, min]);
+    });
   });
 
   describe('interpolation', () => {
