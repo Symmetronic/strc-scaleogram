@@ -1,6 +1,7 @@
 import {
   colorScale,
   criticalGradientPoints,
+  interpolation,
   niceNumber,
   normalization,
   range,
@@ -81,7 +82,56 @@ describe('Scaleogram', () => {
   });
 
   describe('interpolation', () => {
-    // TODO: Add tests
+    it('throws an error when passing an empty array', () => {
+      expect(() => {
+        interpolation([]);
+      }).toThrowError();
+    });
+
+    it('works for single values', () => {
+      /* Zero. */
+      const v1: number = 0;
+      const i1 = interpolation([v1]);
+      for (let percentage: number = 0; percentage <= 1; percentage += 0.1) {
+        expect(i1(percentage)).toBe(v1);
+      }
+
+      /* Positive values. */
+      const v2: number = 4.31;
+      const i2 = interpolation([v2]);
+      for (let percentage: number = 0; percentage <= 1; percentage += 0.1) {
+        expect(i2(percentage)).toBe(v2);
+      }
+
+      /* Negative values. */
+      const v3: number = -91.7;
+      const i3 = interpolation([v3]);
+      for (let percentage: number = 0; percentage <= 1; percentage += 0.1) {
+        expect(i3(percentage)).toBe(v3);
+      }
+    });
+
+    it('returns exact values of input array', () => {
+      const i = interpolation([3, 4, -5]);
+      expect(i(0)).toBe(3);
+      expect(i(0.5)).toBe(4);
+      expect(i(1)).toBe(-5);
+    });
+
+    it('interpolates values for a given percentage', () => {
+      const i = interpolation([-7, -9]);
+      expect(i(0.5)).toBe(-8);
+    });
+
+    it('clamps to the boundary', () => {
+      const i = interpolation([147, -294.31, 12.3]);
+
+      /* Lower boundary. */
+      expect(i(-0.1)).toBe(147);
+
+      /* Upper boundary. */
+      expect(i(5)).toBe(12.3);
+    });
   });
 
   describe('niceNumber', () => {
