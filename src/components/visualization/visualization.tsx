@@ -35,14 +35,14 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
       width='100%'
     >
       {data.map((row, rowIndex) => {
-        const y: number = 100 * rowIndex / data.length;
+        const colWidth: number = 100 / row.length;
+        const y: number = rowIndex * rowHeight;
 
         return (
           <g>
             {row.map((value, colIndex) => {
               const color: string = colorScale(value);
-              const colWidth: number = 100 / row.length;
-              const x: number = 100 * colIndex / row.length;
+              const x: number = colIndex * colWidth;
               
               return (
                 <rect
