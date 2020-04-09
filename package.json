@@ -1,6 +1,6 @@
 {
   "name": "strc-scaleogram",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Web component for a scaleogram visualization.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
