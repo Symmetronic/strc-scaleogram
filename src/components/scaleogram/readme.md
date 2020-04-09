@@ -24,6 +24,7 @@
 ```mermaid
 graph TD;
   strc-scaleogram --> strc-scaleogram-legend
+  strc-scaleogram-legend --> strc-scaleogram-color-gradient
   style strc-scaleogram fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

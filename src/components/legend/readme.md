@@ -19,9 +19,14 @@
 
  - [strc-scaleogram](../scaleogram)
 
+### Depends on
+
+- [strc-scaleogram-color-gradient](../color-gradient)
+
 ### Graph
 ```mermaid
 graph TD;
+  strc-scaleogram-legend --> strc-scaleogram-color-gradient
   strc-scaleogram --> strc-scaleogram-legend
   style strc-scaleogram-legend fill:#f9f,stroke:#333,stroke-width:4px
 ```
