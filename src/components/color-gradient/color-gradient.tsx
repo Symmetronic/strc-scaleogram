@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import {
   ColorScale,
@@ -13,64 +13,65 @@ import {
 const GRADIENT_STEPS: number = 100;
 
 /**
- * Properties of the color gradient.
+ * Color gradient visualization.
  */
-interface ColorGradientProps {
+@Component({
+  tag: 'strc-scaleogram-color-gradient',
+  styleUrl: 'color-gradient.scss',
+  shadow: true,
+})
+export class ColorGradient {
 
   /**
    * Color scale.
    */
-  colorScale: ColorScale;
+  @Prop() colorScale: ColorScale;
 
   /**
    * Data range of the color gradient.
    */
-  range: Range;
-}
+  @Prop() range: Range;
 
-/**
- * Color gradient visualization.
- * @param props Properties of the color gradient.
- */
-export const ColorGradient: FunctionalComponent<ColorGradientProps> = ({
-  colorScale,
-  range,
-}) => {
-  const criticalPoints: number[] = criticalGradientPoints(range);
-  const interpolate: (i: number) => number = interpolation(criticalPoints);
+  /**
+   * Renders the color gradient visualization.
+   */
+  render() {
+    const criticalPoints: number[] = criticalGradientPoints(this.range);
+    const interpolate: (i: number) => number = interpolation(criticalPoints);
 
-  return (
-    <svg
-      height='100%'
-      width='100%'
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient
-          gradientTransform='rotate(90)'
-          id='gradient'
-        >
-          {Array.apply(null, {length: (GRADIENT_STEPS)}).map((_, index) => {
-            const percentage: number = index / (GRADIENT_STEPS - 1);
-            const value: number = interpolate(percentage);
-            const color: string = colorScale(value);
-            const offset: number = 100 * percentage;
-
-            return (
-              <stop
-                offset={offset + '%'}
-                stop-color={color}
-              />
-            );
-          })}
-        </linearGradient>
-      </defs>
-
-      <rect
-        fill="url(#gradient)"
+    return (
+      <svg
         height='100%'
         width='100%'
-      />
-    </svg>
-  );
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient
+            gradientTransform='rotate(90)'
+            id='gradient'
+          >
+            {Array.apply(null, {length: (GRADIENT_STEPS)}).map((_, index) => {
+              const percentage: number = index / (GRADIENT_STEPS - 1);
+              const value: number = interpolate(percentage);
+              const color: string = this.colorScale(value);
+              const offset: number = 100 * percentage;
+
+              return (
+                <stop
+                  offset={offset + '%'}
+                  stop-color={color}
+                />
+              );
+            })}
+          </linearGradient>
+        </defs>
+
+        <rect
+          fill="url(#gradient)"
+          height='100%'
+          width='100%'
+        />
+      </svg>
+    );
+  }
 }

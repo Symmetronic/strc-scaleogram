@@ -27,6 +27,16 @@ export namespace Components {
     */
     'scale': string;
   }
+  interface StrcScaleogramColorGradient {
+    /**
+    * Color scale.
+    */
+    'colorScale': ColorScale;
+    /**
+    * Data range of the color gradient.
+    */
+    'range': Range;
+  }
   interface StrcScaleogramLegend {
     /**
     * Color scale of the legend.
@@ -48,6 +58,12 @@ declare global {
     new (): HTMLStrcScaleogramElement;
   };
 
+  interface HTMLStrcScaleogramColorGradientElement extends Components.StrcScaleogramColorGradient, HTMLStencilElement {}
+  var HTMLStrcScaleogramColorGradientElement: {
+    prototype: HTMLStrcScaleogramColorGradientElement;
+    new (): HTMLStrcScaleogramColorGradientElement;
+  };
+
   interface HTMLStrcScaleogramLegendElement extends Components.StrcScaleogramLegend, HTMLStencilElement {}
   var HTMLStrcScaleogramLegendElement: {
     prototype: HTMLStrcScaleogramLegendElement;
@@ -55,6 +71,7 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'strc-scaleogram': HTMLStrcScaleogramElement;
+    'strc-scaleogram-color-gradient': HTMLStrcScaleogramColorGradientElement;
     'strc-scaleogram-legend': HTMLStrcScaleogramLegendElement;
   }
 }
@@ -74,6 +91,16 @@ declare namespace LocalJSX {
     */
     'scale'?: string;
   }
+  interface StrcScaleogramColorGradient {
+    /**
+    * Color scale.
+    */
+    'colorScale'?: ColorScale;
+    /**
+    * Data range of the color gradient.
+    */
+    'range'?: Range;
+  }
   interface StrcScaleogramLegend {
     /**
     * Color scale of the legend.
@@ -87,6 +114,7 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'strc-scaleogram': StrcScaleogram;
+    'strc-scaleogram-color-gradient': StrcScaleogramColorGradient;
     'strc-scaleogram-legend': StrcScaleogramLegend;
   }
 }
@@ -98,6 +126,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'strc-scaleogram': LocalJSX.StrcScaleogram & JSXBase.HTMLAttributes<HTMLStrcScaleogramElement>;
+      'strc-scaleogram-color-gradient': LocalJSX.StrcScaleogramColorGradient & JSXBase.HTMLAttributes<HTMLStrcScaleogramColorGradientElement>;
       'strc-scaleogram-legend': LocalJSX.StrcScaleogramLegend & JSXBase.HTMLAttributes<HTMLStrcScaleogramLegendElement>;
     }
   }

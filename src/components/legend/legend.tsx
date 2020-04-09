@@ -1,7 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
 
-import { ColorGradient } from '../color-gradient/color-gradient';
-
 import {
   ColorScale,
   criticalGradientPoints,
@@ -40,7 +38,7 @@ export class Legend {
         : (
             <div>
               <div>
-                <ColorGradient
+                <strc-scaleogram-color-gradient
                   colorScale={this.colorScale}
                   range={this.range}
                 />
