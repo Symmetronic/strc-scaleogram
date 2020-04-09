@@ -1,5 +1,15 @@
 import chroma from 'chroma-js';
-import flow from 'lodash.flow'
+
+/**
+ * A minimal color interface.
+ */
+interface Color {
+
+  /**
+   * Returns a hexadecimal representation of the color
+   */
+  hex: () => string;
+}
 
 /**
  * Type of a color scale function.
@@ -25,13 +35,14 @@ export function colorScale(
 ): (value: number) => string {
   /* Determine factor for possible inversion. */
   const direction: number = (!invert) ? 1 : -1;
+  const normalize: (value: number) => number = normalization(range);
+  const color: (value: number) => Color = chroma.scale(scale)
+      .mode('lab')
+      .domain([direction * -1, direction * 1]);
+  const hex: (color: Color) => string = (color: Color) => color.hex();
 
   /* Return color scale. */
-  return flow(
-    normalization(range),
-    chroma.scale(scale).mode('lab').domain([direction * -1, direction * 1]),
-    (color: any) => color.hex(),
-  );
+  return (value: number) => hex(color(normalize(value)));
 }
 
 /**
