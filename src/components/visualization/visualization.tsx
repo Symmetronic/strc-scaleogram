@@ -33,6 +33,7 @@ export const Visualization: FunctionalComponent<VisualizationProps> = ({
       height='100%'
       shape-rendering='crispEdges'
       width='100%'
+      xmlns="http://www.w3.org/2000/svg"
     >
       {data.map((row, rowIndex) => {
         const colWidth: number = 100 / row.length;
