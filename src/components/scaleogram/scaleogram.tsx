@@ -21,7 +21,7 @@ import {
 @Component({
   tag: 'strc-scaleogram',
   styleUrl: 'scaleogram.scss',
-  shadow: true,
+  shadow: false,
 })
 export class Scaleogram {
 
