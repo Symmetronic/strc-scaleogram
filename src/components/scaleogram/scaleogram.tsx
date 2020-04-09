@@ -66,9 +66,9 @@ export class Scaleogram {
   @State() range: Range;
 
   /**
-   * The component is preparing to load.
+   * The component loaded.
    */
-  componentWillLoad(): void {
+  componentDidLoad(): void {
     this.parseInvertScale(this.invertScale);
     this.parseData(this.data);
     this.parseScale(this.scale);
