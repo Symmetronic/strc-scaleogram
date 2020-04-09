@@ -47,6 +47,16 @@ export namespace Components {
     */
     'range': Range;
   }
+  interface StrcScaleogramVisualization {
+    /**
+    * Color scale.
+    */
+    'colorScale': ColorScale;
+    /**
+    * Data of the scaleogram visualization.
+    */
+    'data': number[][];
+  }
 }
 
 declare global {
@@ -69,10 +79,17 @@ declare global {
     prototype: HTMLStrcScaleogramLegendElement;
     new (): HTMLStrcScaleogramLegendElement;
   };
+
+  interface HTMLStrcScaleogramVisualizationElement extends Components.StrcScaleogramVisualization, HTMLStencilElement {}
+  var HTMLStrcScaleogramVisualizationElement: {
+    prototype: HTMLStrcScaleogramVisualizationElement;
+    new (): HTMLStrcScaleogramVisualizationElement;
+  };
   interface HTMLElementTagNameMap {
     'strc-scaleogram': HTMLStrcScaleogramElement;
     'strc-scaleogram-color-gradient': HTMLStrcScaleogramColorGradientElement;
     'strc-scaleogram-legend': HTMLStrcScaleogramLegendElement;
+    'strc-scaleogram-visualization': HTMLStrcScaleogramVisualizationElement;
   }
 }
 
@@ -111,11 +128,22 @@ declare namespace LocalJSX {
     */
     'range'?: Range;
   }
+  interface StrcScaleogramVisualization {
+    /**
+    * Color scale.
+    */
+    'colorScale'?: ColorScale;
+    /**
+    * Data of the scaleogram visualization.
+    */
+    'data'?: number[][];
+  }
 
   interface IntrinsicElements {
     'strc-scaleogram': StrcScaleogram;
     'strc-scaleogram-color-gradient': StrcScaleogramColorGradient;
     'strc-scaleogram-legend': StrcScaleogramLegend;
+    'strc-scaleogram-visualization': StrcScaleogramVisualization;
   }
 }
 
@@ -128,6 +156,7 @@ declare module "@stencil/core" {
       'strc-scaleogram': LocalJSX.StrcScaleogram & JSXBase.HTMLAttributes<HTMLStrcScaleogramElement>;
       'strc-scaleogram-color-gradient': LocalJSX.StrcScaleogramColorGradient & JSXBase.HTMLAttributes<HTMLStrcScaleogramColorGradientElement>;
       'strc-scaleogram-legend': LocalJSX.StrcScaleogramLegend & JSXBase.HTMLAttributes<HTMLStrcScaleogramLegendElement>;
+      'strc-scaleogram-visualization': LocalJSX.StrcScaleogramVisualization & JSXBase.HTMLAttributes<HTMLStrcScaleogramVisualizationElement>;
     }
   }
 }

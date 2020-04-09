@@ -6,8 +6,6 @@ import {
   Watch,
 } from '@stencil/core';
 
-import { Visualization } from '../visualization/visualization';
-
 import {
   colorScale,
   ColorScale,
@@ -165,7 +163,7 @@ export class Scaleogram {
         : (
             <div>
               <div>
-                <Visualization
+                <strc-scaleogram-visualization
                   colorScale={this.colorScale}
                   data={this.parsedData}
                 />

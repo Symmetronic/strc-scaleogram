@@ -19,11 +19,11 @@ describe('Scaleogram', () => {
   });
 
   it('renders an SVG when valid data is specified', async () => {
-    expect(await page.find('strc-scaleogram >>> svg')).toBeFalsy();
+    expect(await page.find('strc-scaleogram >>> strc-scaleogram-visualization >>> svg')).toBeFalsy();
 
     element.setProperty('data', '[[0, 1], [2, 3], [4, 5, 6, 7]]');
     await page.waitForChanges();
 
-    expect(await page.find('strc-scaleogram >>> svg')).toBeTruthy();
+    expect(await page.find('strc-scaleogram >>> strc-scaleogram-visualization >>> svg')).toBeTruthy();
   });
 });
