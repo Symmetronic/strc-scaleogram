@@ -3,7 +3,7 @@ $label-color: #000000;
 :host {
   & > div {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
     height: 100%;
 
     & > div {

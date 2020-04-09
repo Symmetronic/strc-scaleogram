@@ -8,8 +8,8 @@ $legend-width: 8rem;
 
   & > div {
     display: grid;
-    grid-template-columns: auto $legend-width;
-    grid-template-columns: auto var(--strc-scaleogram-legend-width, $legend-width);
+    grid-template-columns: 1fr $legend-width;
+    grid-template-columns: 1fr var(--strc-scaleogram-legend-width, $legend-width);
     height: 100%;
   }
 
