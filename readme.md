@@ -10,7 +10,7 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 
 ### Script tag
 
-- Put a script tag similar to this `<script src='https://unpkg.com/strc-scaleogram@2.0.10/dist/strc-scaleogram.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/strc-scaleogram@2.0.11/dist/strc-scaleogram.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, HTML, etc.
 
 ### Node Modules
@@ -29,7 +29,7 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
 
 ### Attributes
 
-* `data`: String of an array of arrays containing the wavelet coefficients. [Discrete Wavelets](https://github.com/Symmetronic/discrete-wavelets) is a JavaScript library that already returns the coefficients in an appropriate format.
+* `data`: String of an array of arrays containing the wavelet coefficients.
 * `invert-scale` (optional): Set to `true` if you want to invert the direction of the color scale set by the `scale` attribute.
 * `scale` (optional): Color scale as a string. Any valid string of a [Chroma.js color scale](https://vis4.net/chromajs/#color-scales) can be used.
 
@@ -44,6 +44,14 @@ Web component for a [scaleogram visualization](https://en.wikipedia.org/wiki/Spe
   invert-scale="true"
   scale="['#e66101', '#fdb863', '#f7f7f7', '#b2abd2', '#5e3c99']"
 />
+```
+
+[Discrete Wavelets](https://github.com/Symmetronic/discrete-wavelets) is a JavaScript library that already returns the coefficients in an appropriate format. But you need to convert the array to a string using `JSON.stringify()`.
+
+```javascript
+var data = JSON.stringify(
+  coeffs.slice(1) // .slice(1) removes the first element, which are the approximation coefficients
+);
 ```
 
 ### Styling
